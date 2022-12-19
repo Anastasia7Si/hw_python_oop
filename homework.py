@@ -132,7 +132,7 @@ TYPES_WORKOUT: dict[str, Training] = {'SWM': Swimming,
                                       'WLK': SportsWalking}
 
 
-def read_package(workout_type: str, data: dict[float]) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type not in TYPES_WORKOUT:
         raise ValueError(f'Код тренировки {workout_type} не опознан')
