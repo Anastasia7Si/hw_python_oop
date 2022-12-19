@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from abc import abstractmethod
+from typing import List
 
 
 @dataclass
@@ -54,7 +55,7 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return InfoMessage(self.__class__.__name__,
+        return InfoMessage(type(self).__name__,
                            self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
@@ -105,7 +106,7 @@ class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP: float = 1.38
     CALORIES_WEIGHT_MULTIPLIER: float = 1.1
-    CALORIES_MEAN_SPEED_SHIFT: float = 2
+    CALORIES_MEAN_SPEED_SHIFT: int = 2
 
     def __init__(self,
                  action: int,
@@ -132,7 +133,7 @@ TYPES_WORKOUT: dict[str, Training] = {'SWM': Swimming,
                                       'WLK': SportsWalking}
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: List) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type not in TYPES_WORKOUT:
         raise ValueError(f'Код тренировки {workout_type} не опознан')
