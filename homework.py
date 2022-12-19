@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from abc import abstractmethod
-from typing import List
+from typing import Dict, List
 
 
 @dataclass
@@ -128,7 +128,7 @@ class Swimming(Training):
                 * self.CALORIES_MEAN_SPEED_SHIFT * self.weight * self.duration)
 
 
-TYPES_WORKOUT: dict[str, Training] = {'SWM': Swimming,
+TYPES_WORKOUT: Dict[str, Training] = {'SWM': Swimming,
                                       'RUN': Running,
                                       'WLK': SportsWalking}
 
