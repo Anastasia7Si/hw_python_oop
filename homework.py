@@ -54,7 +54,7 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return InfoMessage(self.__class__.__name__,
+        return InfoMessage(type(self).__name__,
                            self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
@@ -127,7 +127,7 @@ class Swimming(Training):
                 * self.CALORIES_MEAN_SPEED_SHIFT * self.weight * self.duration)
 
 
-TYPES_WORKOUT: list[str, Training] = {'SWM': Swimming,
+TYPES_WORKOUT: dict[str, Training] = {'SWM': Swimming,
                                       'RUN': Running,
                                       'WLK': SportsWalking}
 
