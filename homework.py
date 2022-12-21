@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from abc import abstractmethod
+from dataclasses import dataclass, asdict
 from typing import Dict, List
 
 
@@ -11,18 +10,14 @@ class InfoMessage:
     distance: float
     speed: float
     calories: float
-    MSG: str = ('Тип тренировки: {}; '
-                'Длительность: {:.3f} ч.; '
-                'Дистанция: {:.3f} км; '
-                'Ср. скорость: {:.3f} км/ч; '
-                'Потрачено ккал: {:.3f}.')
+    MSG: str = ('Тип тренировки: {training_type}; '
+                'Длительность: {duration:.3f} ч.; '
+                'Дистанция: {distance:.3f} км; '
+                'Ср. скорость: {speed:.3f} км/ч; '
+                'Потрачено ккал: {calories:.3f}.')
 
     def get_message(self) -> str:
-        return self.MSG.format(self.training_type,
-                               self.duration,
-                               self.distance,
-                               self.speed,
-                               self.calories)
+        return self.MSG.format(**asdict(self))
 
 
 class Training:
@@ -48,10 +43,10 @@ class Training:
         """Получить среднюю скорость движения."""
         return self.get_distance() / self.duration
 
-    @abstractmethod
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        pass
+        raise NotImplementedError(f'Определите метод get_spent_calories'
+                                  f' в {type(self)}')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
